@@ -3,11 +3,9 @@ import { Framework } from '@midwayjs/koa';
 import { Response } from 'superagent';
 
 describe('test/controller/user.test.ts', () => {
-
   it('should POST /api/user/login', async () => {
     const app = await createApp<Framework>();
     let result: Response;
-
     await createHttpRequest(app).get('/api/user/mockuser');
 
     //validate parameters
@@ -30,7 +28,6 @@ describe('test/controller/user.test.ts', () => {
       },
     });
 
-
     // login with error user'
     result = await createHttpRequest(app).post('/api/user/login')
       .type('form')
@@ -39,8 +36,5 @@ describe('test/controller/user.test.ts', () => {
     expect(result.body.result).toBe('error');
 
     await close(app);
-
-
-
   });
 });
