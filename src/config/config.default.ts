@@ -7,9 +7,13 @@ export default {
     port: 7001,
   },
   orm: {
-	  type: 'sqlite',
-	  database: ":memory",
-	  synchronize: true,
-	  logging: true,
+    type: 'sqlite',
+    database: ':memory:',
+    synchronize: true,
+    logging: true,
+  },
+  jwt: {
+    secret: 'uwru9wer2489sidfwkd242', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d', // https://github.com/vercel/ms
   },
 } as MidwayConfig;

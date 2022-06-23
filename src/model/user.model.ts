@@ -13,11 +13,30 @@ export class UserModel {
    * @param username {String} 用户名
    * @param password {String} 用户密码
    */
-  async getUserByUsernameAndPassword(username, password): Promise<UserEntity> {
-    let user = await this.userRepo.findOne({
-      where: { username: username, password: password },
+  async getUserByUsernameAndPassword(
+    username: string,
+    password: string
+  ): Promise<UserEntity> {
+    const users = await this.userRepo.find({
+      where: {
+        username: username,
+        password: password,
+      },
+      take: 1,
     });
+    return users ? users[0] : null;
+  }
 
-    return user;
+  /**
+   * 添加用户
+   * @param username {String} 用户名
+   * @param password {String} 用户密码
+   */
+  async addUser(username: string, password: string) {
+    const user = new UserEntity();
+    user.username = username;
+    user.password = password;
+    const res = await this.userRepo.save(user);
+    return res;
   }
 }
