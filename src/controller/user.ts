@@ -2,6 +2,8 @@ import { Controller, All, Inject, Post, Body } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/koa';
 import { UserModel } from '../model/user.model';
 import { JwtService } from '@midwayjs/jwt';
+import { UserLoginDTO } from '../dto/user.dto';
+import { Validate } from '@midwayjs/validate';
 
 @Controller('/api/user')
 export class UserController {
@@ -24,18 +26,12 @@ export class UserController {
     };
   }
 
-  @All('/admin')
-  async demoAdmin() {
-    return {
-      code: 200,
-    };
-  }
-
   @Post('/login')
-  async getUser(@Body('username') username, @Body('password') password) {
+  @Validate()
+  async getUser(@Body() bodyData: UserLoginDTO) {
     const user = await this.userModel.getUserByUsernameAndPassword(
-      username,
-      password
+      bodyData.username,
+      bodyData.password
     );
     if (!user)
       return {
