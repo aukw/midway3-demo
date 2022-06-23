@@ -18,8 +18,8 @@ export class UserController {
 
   @All('/mockuser')
   async mockUser() {
-    const username = 'tom',
-      password = 'jerry';
+    const username = 'jack',
+      password = 'redballoon';
     await this.userModel.addUser(username, password);
     return {
       code: 200,
